@@ -36,7 +36,7 @@ class FailedTask(TimeStampedModel):
             raise TypeError(u'Cannot reapply a resolved task: {}'.format(self))
         log.info(u'Reapplying failed task: {}'.format(self))
         task_object = current_app.tasks[self.task_name]
-        task_object.apply_async(
+        result = task_object.apply_async(
             args=self.args,
             kwargs=self.kwargs,
             task_id=self.task_id,

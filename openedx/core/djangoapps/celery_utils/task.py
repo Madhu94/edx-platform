@@ -29,6 +29,7 @@ class PersistOnFailureTask(Task):  # pylint: disable=abstract-method
 
     def on_success(self, retval, task_id, args, kwargs):
         FailedTask.objects.filter(task_id=task_id, datetime_resolved=None).update(datetime_resolved=now())
+        super(PersistOnFailureTask, self).on_success(retval, task_id, args, kwargs)
 
 
 def _truncate_to_field(model, field_name, value):
