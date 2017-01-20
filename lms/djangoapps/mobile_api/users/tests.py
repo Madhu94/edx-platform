@@ -178,19 +178,6 @@ class TestUserEnrollmentApi(UrlResetMixin, MobileAPITestCase, MobileAuthUserTest
             if result['error_code'] is not None:
                 self.assertFalse(result['has_access'])
 
-    def test_ignore_mobile_available_flag_access(self):
-        """
-        Test that when the IgnoreMobileAvailableFlagConfig's mobile_available_override is
-        true, the mobile_available access restriction is ignored.
-        """
-        IgnoreMobileAvailableFlagConfig(mobile_available_override=True).save()
-        self.login()
-        course = CourseFactory.create(mobile_available=False)
-        self.enroll(course.id)
-        response = self.api_response()
-        result = response.data[0]['course']['courseware_access']
-        self.assertTrue(result['has_access'])
-
     @ddt.data(
         (NEXT_WEEK, ADVERTISED_START, ADVERTISED_START, "string"),
         (NEXT_WEEK, None, defaultfilters.date(NEXT_WEEK, "DATE_FORMAT"), "timestamp"),

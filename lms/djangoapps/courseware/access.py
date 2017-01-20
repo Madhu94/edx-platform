@@ -851,11 +851,8 @@ def _has_catalog_visibility(course, visibility_type):
 def _is_descriptor_mobile_available(descriptor):
     """
     Returns if descriptor is available on mobile.
-
-    If the ignore_mobile_available_flag is enabled, the mobile_available flag
-    is ignored and access will be granted.
     """
-    if descriptor.mobile_available or IgnoreMobileAvailableFlagConfig.ignore_mobile_available_flag():
+    if IgnoreMobileAvailableFlagConfig.is_enabled() or descriptor.mobile_available:
         return ACCESS_GRANTED
     else:
         return MobileAvailabilityError()

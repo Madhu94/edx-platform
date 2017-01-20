@@ -282,9 +282,11 @@ class UserCourseEnrollmentsList(generics.ListAPIView):
             is_active=True
         ).order_by('created').reverse()
         org = self.request.query_params.get('org', None)
-        return [enrollment for enrollment in enrollments
-                if enrollment.course_overview and self.is_org(org, enrollment.course_overview.org) and
-                is_mobile_available_for_user(self.request.user, enrollment.course_overview)]
+        return [
+            enrollment for enrollment in enrollments
+            if enrollment.course_overview and self.is_org(org, enrollment.course_overview.org) and
+            is_mobile_available_for_user(self.request.user, enrollment.course_overview)
+        ]
 
 
 @api_view(["GET"])
