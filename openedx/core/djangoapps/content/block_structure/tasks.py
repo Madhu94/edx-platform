@@ -36,10 +36,10 @@ def update_course_in_cache(course_id):
         # Known unrecoverable errors
         raise
     except RETRY_TASKS as exc:
-        log.exception("update_course_in_cache encounted expected error, retrying.")
+        log.exception("update_course_in_cache encountered expected error, retrying.")
         raise update_course_in_cache.retry(args=[course_id], exc=exc)
     except Exception as exc:   # pylint: disable=broad-except
-        log.exception("update_course_in_cache encounted unknown error. Retry #{}".format(
+        log.exception("update_course_in_cache encountered unknown error. Retry #{}".format(
             update_course_in_cache.request.retries,
         ))
         raise update_course_in_cache.retry(args=[course_id], exc=exc)

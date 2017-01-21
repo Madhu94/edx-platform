@@ -950,6 +950,12 @@ INSTALLED_APPS = (
 
     # management of user-triggered async tasks (course import/export, etc.)
     'user_tasks',
+
+    # Waffle for toggling features and for staged rollouts.
+    # Note: Waffle's middleware is required only for Flag, not
+    # for Switch or Sample. Add the middleware only when a
+    # feature requires it.
+    'waffle',
 )
 
 

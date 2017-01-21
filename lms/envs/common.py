@@ -2157,6 +2157,12 @@ INSTALLED_APPS = (
     # Customized celery tasks, including persisting failed tasks so they can
     # be retried
     'openedx.core.djangoapps.celery_utils',
+
+    # Waffle for toggling features and for staged rollouts.
+    # Note: Waffle's middleware is required only for Flag, not
+    # for Switch or Sample. Add the middleware only when a
+    # feature requires it.
+    'waffle',
 )
 
 # Migrations which are not in the standard module "migrations"
